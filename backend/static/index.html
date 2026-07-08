@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BlobLens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">◍</span>
+      <span class="brand-name">BlobLens</span>
+    </div>
+    <div class="searchbox">
+      <input id="q" type="search" autocomplete="off" spellcheck="false"
+             placeholder="Search file names, paths, and document text…" autofocus />
+      <span id="timing" class="timing" title="Search latency"></span>
+    </div>
+    <div id="stats" class="stats">…</div>
+  </header>
+
+  <main class="layout">
+    <aside class="filters" aria-label="Filters">
+      <section>
+        <h2>Container</h2>
+        <ul id="facet-container" class="facet-list"></ul>
+      </section>
+      <section>
+        <h2>File type</h2>
+        <ul id="facet-extension" class="facet-list"></ul>
+      </section>
+      <section>
+        <h2>Sort</h2>
+        <select id="sort">
+          <option value="">Relevance</option>
+          <option value="last_modified:desc">Newest first</option>
+          <option value="last_modified:asc">Oldest first</option>
+          <option value="size:desc">Largest first</option>
+          <option value="size:asc">Smallest first</option>
+        </select>
+      </section>
+      <button id="clear" class="clear-btn" hidden>Clear filters</button>
+    </aside>
+
+    <section class="results-pane">
+      <div id="summary" class="summary"></div>
+      <ol id="results" class="results"></ol>
+      <div id="empty" class="empty" hidden>
+        <p class="empty-title">No blobs match</p>
+        <p>Try a shorter query, or clear the active filters. If the index is
+           empty, the worker may still be on its first sync pass —
+           check <code>docker compose logs worker</code>.</p>
+      </div>
+      <button id="more" class="more-btn" hidden>Load more results</button>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

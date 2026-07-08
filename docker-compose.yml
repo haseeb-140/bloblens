@@ -1,0 +1,44 @@
+services:
+  meilisearch:
+    image: getmeili/meilisearch:v1.12
+    environment:
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:-bloblens-dev-key}
+      MEILI_NO_ANALYTICS: "true"
+      MEILI_ENV: production
+    volumes:
+      - meili_data:/meili_data
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:7700/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build: ./backend
+    env_file: .env
+    environment:
+      MEILI_URL: http://meilisearch:7700
+    ports:
+      - "8000:8000"
+    volumes:
+      - indexer_state:/data
+    depends_on:
+      meilisearch:
+        condition: service_healthy
+
+  worker:
+    build: ./backend
+    command: python -m app.worker
+    env_file: .env
+    environment:
+      MEILI_URL: http://meilisearch:7700
+    volumes:
+      - indexer_state:/data
+    depends_on:
+      meilisearch:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  meili_data:
+  indexer_state:
