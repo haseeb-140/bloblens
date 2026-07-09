@@ -27,10 +27,7 @@ Then open **http://localhost:8000**.
 
 > Typo-tolerant, sub-50ms search courtesy of [Meilisearch](https://meilisearch.com).
 
-<!-- Replace with a screenshot / GIF of the search UI, e.g.:
-     ![BlobLens search UI](docs/screenshot.png)
-     A short GIF of search-as-you-type over a real container is the single
-     most effective thing you can add to this README. -->
+![BlobLens search-as-you-type demo](docs/demo.gif)
 
 ## Quickstart
 
@@ -120,6 +117,14 @@ GET /api/download?container=uploads&path=2026/03/invoice-081.pdf
       is already shaped for this)
 - [ ] Deletion reconciliation (remove index docs for deleted blobs)
 - [ ] Managed identity / `DefaultAzureCredential` auth
+- [ ] **PII detection & redaction** — scan extracted text before indexing and
+      mask emails, phone numbers, national IDs, credit-card/PAN, etc. (regex +
+      optional Azure AI Language PII recognizer), so sensitive values never
+      land in the search index. Configurable per-entity policy: redact,
+      hash-for-search, or drop the document
+- [ ] **Content/label-based access filtering** — honor Microsoft Purview
+      sensitivity labels and blob index tags to exclude or gate documents at
+      index time; pairs with identity-based access above
 - [ ] Blob index tags + user metadata as filterable facets
 - [ ] Optional Tika sidecar profile for long-tail formats (eml, odt, legacy doc)
 - [ ] Optional OCR profile (Tesseract) for scanned PDFs and images
