@@ -1,4 +1,4 @@
-# ◍ BlobLens
+# ◍ BlobLens - Search Anything in Your Azure Blob Storage via Simple Search
 
 **Full-text search for Azure Blob Storage. Self-hosted, one command, $0.**
 
@@ -140,6 +140,12 @@ python -m app.worker                     # one-shot: python -c "from app import 
 ```
 
 PRs welcome — especially on the roadmap items above.
+
+
+🛡️ Support and maintenance
+This project relies on standard Docker commands. If the software stops responding, restart the Docker Desktop application. Check that your Azure access key remains valid. If you lose access, update your credentials in the settings menu. You can remove the bloblens folder to uninstall the application.
+
+Keywords: azure, search, documents, pdf, docker, storage, index, windows, self-hosted , linux , bloblens 
 
 ## License
 
